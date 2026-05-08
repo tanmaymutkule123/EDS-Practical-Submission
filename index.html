@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EDS — Completion Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f0e0d;
+      --surface: #1a1916;
+      --surface-2: #232119;
+      --border: rgba(255,255,255,0.07);
+      --border-hover: rgba(212,165,70,0.4);
+      --gold: #d4a546;
+      --gold-light: #e8c47a;
+      --gold-dim: rgba(212,165,70,0.12);
+      --text: #f0ebe0;
+      --text-muted: #8a8370;
+      --text-dim: #5a5448;
+      --green: #4caf86;
+      --green-dim: rgba(76,175,134,0.1);
+      --radius: 14px;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 0 0 80px;
+    }
+
+    /* ─── HEADER ─────────────────────────────────────── */
+    .header {
+      background: linear-gradient(180deg, #1c1a15 0%, var(--bg) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 56px 40px 44px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% -10%, rgba(212,165,70,0.09) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .header-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      margin-bottom: 14px;
+    }
+
+    .header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+
+    .header-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      font-weight: 300;
+      margin-bottom: 28px;
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--green-dim);
+      border: 1px solid rgba(76,175,134,0.25);
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 50px;
+    }
+
+    .dot-green {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* ─── MAIN CONTENT ───────────────────────────────── */
+    .container {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 48px 24px 0;
+    }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    /* ─── FEATURED CARDS (top items) ─────────────────── */
+    .featured-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 22px 20px;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      border-color: var(--border-hover);
+      background: var(--surface-2);
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(212,165,70,0.3), transparent);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .card:hover::after { opacity: 1; }
+
+    .card-icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 14px;
+      font-size: 17px;
+    }
+
+    .icon-gold { background: var(--gold-dim); color: var(--gold); }
+    .icon-green { background: var(--green-dim); color: var(--green); }
+    .icon-blue { background: rgba(100,149,237,0.1); color: #6495ed; }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .card-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 300;
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    .status-done {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--green);
+      background: var(--green-dim);
+      border: 1px solid rgba(76,175,134,0.2);
+      padding: 3px 9px;
+      border-radius: 50px;
+      margin-bottom: 14px;
+    }
+
+    /* ─── LINK BUTTON ────────────────────────────────── */
+    .card-link {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--gold-light);
+      text-decoration: none;
+      padding: 9px 14px;
+      border: 1px solid rgba(212,165,70,0.2);
+      border-radius: 9px;
+      background: rgba(212,165,70,0.05);
+      transition: background 0.15s, border-color 0.15s;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .card-link:hover {
+      background: rgba(212,165,70,0.12);
+      border-color: rgba(212,165,70,0.45);
+    }
+
+    .card-link svg {
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+
+    /* ─── IMAGE PREVIEW ──────────────────────────────── */
+    .card-img-wrap {
+      border-radius: 9px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      margin-bottom: 14px;
+      background: var(--surface-2);
+      min-height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-img-wrap img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .img-placeholder {
+      text-align: center;
+      padding: 24px 16px;
+      color: var(--text-dim);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .img-placeholder span {
+      display: block;
+      font-size: 22px;
+      margin-bottom: 6px;
+      opacity: 0.4;
+    }
+
+    /* ─── PRACTICALS LIST ────────────────────────────── */
+    .practicals-wrap {
+      margin-top: 36px;
+    }
+
+    .practical-row {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 8px;
+      transition: border-color 0.2s, background 0.2s;
+      text-decoration: none;
+    }
+
+    .practical-row:hover {
+      border-color: var(--border-hover);
+      background: var(--surface-2);
+    }
+
+    .practical-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--gold);
+      min-width: 28px;
+    }
+
+    .practical-info {
+      flex: 1;
+    }
+
+    .practical-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .practical-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .practical-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill-link {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--gold-light);
+      text-decoration: none;
+      padding: 5px 12px;
+      border: 1px solid rgba(212,165,70,0.2);
+      border-radius: 7px;
+      background: rgba(212,165,70,0.05);
+      white-space: nowrap;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .pill-link:hover {
+      background: rgba(212,165,70,0.12);
+      border-color: rgba(212,165,70,0.4);
+    }
+
+    .pill-link.secondary {
+      color: #6495ed;
+      border-color: rgba(100,149,237,0.2);
+      background: rgba(100,149,237,0.05);
+    }
+
+    .pill-link.secondary:hover {
+      background: rgba(100,149,237,0.12);
+      border-color: rgba(100,149,237,0.4);
+    }
+
+    .check-badge {
+      color: var(--green);
+      font-size: 15px;
+    }
+
+    /* ─── DIVIDER ─────────────────────────────────────── */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 36px 0;
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────── */
+    .footer {
+      text-align: center;
+      margin-top: 64px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    @media (max-width: 600px) {
+      .header { padding: 40px 20px 32px; }
+      .container { padding: 36px 16px 0; }
+      .practical-actions { flex-direction: column; gap: 6px; align-items: flex-end; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════════════
+       HEADER — Edit: subject name, your name, semester
+  ════════════════════════════════════════════════ -->
+  <div class="header">
+    <div class="header-eyebrow">EDS Submission</div>
+    <h1>Essentials of Data Science</h1>
+
+    <!-- ✏️ Edit: your name, roll no, semester below -->
+    <p class="header-sub">Name- Tanmay Mutkule &nbsp;·&nbsp; Roll No.- 093 &nbsp;·&nbsp; Sem II &nbsp;·&nbsp; MIT AOE</p>
+
+    <div class="header-badge">
+      <div class="dot-green"></div>
+      All submissions completed
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- ════════════════════════════════════════════════
+         SECTION 1 — MAIN SUBMISSIONS
+         Add links, screenshots, or PDF links here
+    ════════════════════════════════════════════════ -->
+    <p class="section-label">Primary Submissions</p>
+
+    <div class="featured-grid">
+
+      <!-- ── CARD 1: Video Demo ── -->
+      <div class="card">
+        <div class="card-icon icon-gold">▶</div>
+        <div class="card-title">Video Demonstration</div>
+        <div class="card-desc">Video uploadation on Youtube of Python.</div>
+        <div class="status-done">✓ Completed</div>
+
+        <!-- ✏️ Replace href with your video link (YouTube, Preskilet, Drive, etc.) -->
+        <a class="card-link" href="https://youtu.be/ScGb7S4N4nw?si=uIy19Wg5VDnFiweh" target="_blank">
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Watch Video
+        </a>
+      </div>
+
+      <!-- ── CARD 2: CodeTantra ── -->
+      <div class="card">
+        <div class="card-icon icon-blue">⌨</div>
+        <div class="card-title">CodeTantra Completion</div>
+        <div class="card-desc">Screenshot of CodeTantra task completion.</div>
+        <div class="status-done">✓ Completed</div>
+
+        <!-- ✏️ Option A: Link to a PDF / screenshot hosted online -->
+        <a class="card-link" href="C:\Users\TANMAY MUTKULE\Documents\EDS lab 100% completion.jpeg" target="_blank">
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          View Proof
+        </a>
+
+        <!-- ✏️ Option B: If you want to show a screenshot image instead, remove the link above
+             and uncomment the block below, replacing src with your image path or URL:
+        <div class="card-img-wrap">
+          <img src="YOUR_SCREENSHOT.png" alt="CodeTantra completion screenshot" />
+        </div>
+        -->
+      </div>
+
+      <!-- ── CARD 3: Cisco Certificate ── -->
+      <div class="card">
+        <div class="card-icon icon-green">🏅</div>
+        <div class="card-title">Cisco Certificate</div>
+        <div class="card-desc">Cisco Networking Academy course completion certificate.</div>
+        <div class="status-done">✓ Completed</div>
+
+        <!-- ✏️ Replace href with your certificate PDF or image link -->
+        <a class="card-link" href="C:\Users\TANMAY MUTKULE\Documents\CISCO Python course completion.pdf" target="_blank">
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+         View Certificate
+        </a>
+      </div>
+
+    </div>
+
+    <!-- ════════════════════════════════════════════════
+         CERTIFICATE SCREENSHOT PREVIEW (optional)
+         Uncomment below to show a preview image of your
+         certificate directly on the page
+    ════════════════════════════════════════════════ -->
+    <!--
+    <div class="card" style="margin-top: 12px;">
+      <div class="card-title" style="margin-bottom: 12px;">Certificate Preview</div>
+      <div class="card-img-wrap">
+        <img src="YOUR_CERTIFICATE_IMAGE.jpg" alt="Cisco Certificate" />
+      </div>
+    </div>
+    -->
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════════════════
+         SECTION 2 — PRACTICALS
+         Edit name, description, and links for each row.
+         You can add a PDF link AND a screenshot link per row.
+    ════════════════════════════════════════════════ -->
+    <p class="section-label">Practical Submissions</p>
+
+    <div class="practicals-wrap">
+
+      <!-- ── PRACTICAL 1 ── -->
+      <div class="practical-row">
+        <div class="practical-num">01</div>
+        <div class="practical-info">
+          <!-- ✏️ Edit practical title and short description below -->
+          <div class="practical-name">Practical 1</div>
+          <div class="practical-meta">Add a short description here</div>
+        </div>
+        <div class="practical-actions">
+          <span class="check-badge">✓</span>
+          <!-- ✏️ Replace href with your PDF or hosted file link -->
+          <a class="pill-link" href="C:\Users\TANMAY MUTKULE\Documents\EDS Practical 1 completion (093).pdf" target="_blank">View PDF</a>
+          <!-- ✏️ Optional: add a screenshot link as second button -->
+          <!-- <a class="pill-link secondary" href="YOUR_SCREENSHOT_LINK" target="_blank">Screenshot</a> -->
+        </div>
+      </div>
+
+      <!-- ── PRACTICAL 2 ── -->
+      <div class="practical-row">
+        <div class="practical-num">02</div>
+        <div class="practical-info">
+          <div class="practical-name">Practical 2</div>
+          <div class="practical-meta">Add a short description here</div>
+        </div>
+        <div class="practical-actions">
+          <span class="check-badge">✓</span>
+          <a class="pill-link" href="C:\Users\TANMAY MUTKULE\Documents\EDS Practical 2 completion (093).pdf" target="_blank">View PDF</a>
+        </div>
+      </div>
+
+      <!-- ── PRACTICAL 3 ── -->
+      <div class="practical-row">
+        <div class="practical-num">03</div>
+        <div class="practical-info">
+          <div class="practical-name">Practical 3</div>
+          <div class="practical-meta">Add a short description here</div>
+        </div>
+        <div class="practical-actions">
+          <span class="check-badge">✓</span>
+          <a class="pill-link" href="C:\Users\TANMAY MUTKULE\Documents\EDS Practical 3 completion (093).pdf" target="_blank">View PDF</a>
+        </div>
+      </div>
+
+      <!-- ── PRACTICAL 4 ── -->
+      <div class="practical-row">
+        <div class="practical-num">04</div>
+        <div class="practical-info">
+          <div class="practical-name">Practical 4</div>
+          <div class="practical-meta">Add a short description here</div>
+        </div>
+        <div class="practical-actions">
+          <span class="check-badge">✓</span>
+          <a class="pill-link" href="C:\Users\TANMAY MUTKULE\Documents\EDS Practical 4 completion (093).pdf" target="_blank">View PDF</a>
+        </div>
+      </div>
+
+      <!-- ── PRACTICAL 5 ── -->
+      <div class="practical-row">
+        <div class="practical-num">05</div>
+        <div class="practical-info">
+          <div class="practical-name">Practical 5</div>
+          <div class="practical-meta">Add a short description here</div>
+        </div>
+        <div class="practical-actions">
+          <span class="check-badge">✓</span>
+          <a class="pill-link" href="C:\Users\TANMAY MUTKULE\Documents\EDS Practical 5 completion (093).pdf" target="_blank">View PDF</a>
+        </div>
+      </div>
+
+      <!-- ✏️ To add more practicals, copy any row block above and change the number and links -->
+
+    </div>
+
+    <div class="footer">
+      Essential Design Skills &nbsp;·&nbsp; Pune University
+    </div>
+
+  </div>
+</body>
+</html>
